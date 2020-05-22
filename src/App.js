@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
 import QuoteCard from "./components/QuoteCard";
 import Loading from "./components/Loading";
@@ -35,12 +36,20 @@ export class App extends Component {
     };
   }
 
+  componentWillMount() {
+    axios.get('https://type.fit/api/quotes')
+      .then(res => {
+        const persons = res.data;
+        this.setState({ quotes : persons });
+      })
+  }
+
   render() {
     return (
       <div className="App">
         {this.state.loading && <Loading />}
         {!this.state.loading &&
-          this.state.quotes.map((q) => <QuoteCard quote={q} />)}
+          this.state.quotes.slice(0 , 10).map((q) => <QuoteCard quote={q} />)}
       </div>
     );
   }
