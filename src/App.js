@@ -1,81 +1,49 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { Component } from "react";
 import "./App.css";
 import QuoteCard from "./components/QuoteCard";
+import Loading from "./components/Loading";
 
-function App() {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     quotes :[],
-  //   }
-  // }
+var dummyQ = [
+  {
+    qText: "Be Strong",
+    qAuthor: "Majid",
+    qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
+  },
+  {
+    qText: "Never give up",
+    qAuthor: "Some1",
+    qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
+  },
+  {
+    qText: "Be brave",
+    qAuthor: "Jouhn",
+    qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
+  },
+  {
+    qText: "Never give up",
+    qAuthor: "Some1",
+    qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
+  },
+];
 
-  const quotes = [
-    {
-      qText: "Be Strong",
-      qAuthor: "Majid",
-      qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
-    },
-    {
-      qText: "Never give up",
-      qAuthor: "Some1",
-      qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
-    },
-  ];
-  return (
-    <div className="App">
-      <QuoteCard
-        quote={{
-          qText: "Be Strong",
-          qAuthor: "Majid",
-          qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
-        }}
-      />
-      <QuoteCard
-        quote={{
-          qText: "Be Strong",
-          qAuthor: "Majid",
-          qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
-        }}
-      />
-      <QuoteCard
-        quote={{
-          qText: "Be Strong",
-          qAuthor: "Majid",
-          qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
-        }}
-      />
-      <QuoteCard
-        quote={{
-          qText: "Be Strong",
-          qAuthor: "Majid",
-          qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
-        }}
-      />
-      <QuoteCard
-        quote={{
-          qText: "Be Strong",
-          qAuthor: "Majid",
-          qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
-        }}
-      />
-      <QuoteCard
-        quote={{
-          qText: "Be Strong",
-          qAuthor: "Majid",
-          qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
-        }}
-      />
-      <QuoteCard
-        quote={{
-          qText: "Never give up or die trying to ",
-          qAuthor: "Some1",
-          qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
-        }}
-      />
-    </div>
-  );
+export class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quotes: dummyQ, // This should be loaded from and API
+      loading: false,
+    };
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.loading && <Loading />}
+        {!this.state.loading &&
+          this.state.quotes.map((q) => <QuoteCard quote={q} />)}
+      </div>
+    );
+  }
 }
 
 export default App;
