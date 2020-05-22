@@ -35,13 +35,41 @@ export class App extends Component {
     };
   }
 
+  componentDidMount() {
+    const resArr = [];
+
+    fetch("https://type.fit/api/quotes")
+      .then(function (response) {
+        return response.json();
+      })
+      .then((data) => {
+        const arr = data.slice(0, 14);
+        arr.map((obj) => {
+          let newObj = {
+            qText: obj.text,
+            qAuthor: obj.author,
+            qImgSrc: "https://theysaidso.com/img/qod/qod-inspire.jpg",
+          };
+
+          resArr.push(newObj);
+        });
+        console.log(resArr);
+        this.setState({ loading: false, quotes: resArr });
+      });
+  }
+
   render() {
     return (
+      <>
+      <div>
+        <h1> Welcome to Quote App</h1>
+        </div>
       <div className="App">
         {this.state.loading && <Loading />}
         {!this.state.loading &&
           this.state.quotes.map((q) => <QuoteCard quote={q} />)}
       </div>
+      </>
     );
   }
 }
